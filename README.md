@@ -1,6 +1,6 @@
-# React + Vite
+# Problem: 💧 Water Jug Challenge 💧
 
-Problem: 💧 Water Jug Challenge 💧
+
 
 Overview 👇
 
