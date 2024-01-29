@@ -36,6 +36,7 @@ const Jugs = () => {
     const [resp, setResp] = useState('');
     const [response, setResponse] = useState('');
     const movements = [];
+    const movementsTwo = [];
 
     const Fill = (jarra, newJarra) => {
         // console.log('jarra -> ' + jarra);
@@ -46,11 +47,13 @@ const Jugs = () => {
                 return prevTotalX + newJarra;
             });
             movements.push('Jar X has been filled with -> ' + newJarra);
+            movementsTwo.push('Jar X has been filled with -> ' + newJarra);
         } else if (jarra === 'Y') {
             setTotalY((prevTotalY) => {
                 return prevTotalY + newJarra;
             });
             movements.push('Jar Y has been filled with ->' + newJarra);
+            movementsTwo.push('Jar Y has been filled with ->' + newJarra);
         }
 
     };
@@ -59,18 +62,23 @@ const Jugs = () => {
         if (jarra === 'X') {
             setTotalX(0);
             movements.push('Jug has been emptied X');
+            movementsTwo.push('Jug has been emptied X');
         } else {
             setTotalY(0);
             movements.push('Jug has been emptied Y');
+            movementsTwo.push('Jug has been emptied Y');
         }
     };
 
     const Transfer = (jarraOrigen, jarraDestino, count) => {
         movements.push('*********Start Water transfer*********');
         movements.push(jarraOrigen + ' -> ' + jarraDestino);
+        movementsTwo.push('*********Start Water transfer*********');
+        movementsTwo.push(jarraOrigen + ' -> ' + jarraDestino);
         Empty(jarraOrigen);
         Fill(jarraDestino, count);
         movements.push('*********End Water transfer*********');
+        movementsTwo.push('*********End Water transfer*********');
     };
 
     const printMovements = () => {
@@ -102,24 +110,30 @@ const Jugs = () => {
                     Fill('X', valueX);
                     setResponse(movements.map((movement, index) => <p key={index}>{movement}</p>));
                 } else if (valueY > (valueX * resultX)) {
-                    for (let i = 0; i < resultX; i++) {
-                        Fill('X', valueX);
-                        Transfer('X', 'Y', valueX);
+
+                    // for (let i = 0; i < resultX; i++) {
+                    //     Fill('X', valueX);
+                    //     Transfer('X', 'Y', valueX);
+                    // }
+                    Fill('Y', valueY);
+                    for (let i = valueY; i > valueZ; i-= valueX) {
+                        Transfer('Y', 'X', valueX);
                     }
-                    printMovements();
+
                     setResponse(movements.map((movement, index) => <p key={index}>{movement}</p>));
+                    printMovements();
                 }
             } else if (valueZ % valueY === 0) {
                 if (resultY === 1) {
-                    Fill('Y', valueY);
                     setResponse(movements.map((movement, index) => <p key={index}>{movement}</p>));
+                    Fill('Y', valueY);
                 } else if (valueX > (valueY * resultY)) {
                     for (let i = 0; i < resultY; i++) {
                         Fill('Y', valueY);
                         Transfer('Y', 'X', valueY);
                     }
-                    printMovements();
                     setResponse(movements.map((movement, index) => <p key={index}>{movement}</p>));
+                    printMovements();
                 }
             } else {
                 setResp('No Solution');
