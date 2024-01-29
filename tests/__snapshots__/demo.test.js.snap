@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test <Jugs /> Render the Jugs component 1`] = `
+<div>
+  &lt;Jugs /&gt;
+</div>
+`;
